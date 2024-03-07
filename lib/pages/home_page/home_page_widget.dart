@@ -53,8 +53,8 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                   'Ingredient',
                   style: FlutterFlowTheme.of(context).bodyMedium,
                 ),
-                FutureBuilder<List<GetListOfIngredientsRow>>(
-                  future: SQLiteManager.instance.getListOfIngredients(),
+                FutureBuilder<List<ListOfMealsRow>>(
+                  future: SQLiteManager.instance.listOfMeals(),
                   builder: (context, snapshot) {
                     // Customize what your widget looks like when it's loading.
                     if (!snapshot.hasData) {
@@ -70,14 +70,13 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                         ),
                       );
                     }
-                    final columnGetListOfIngredientsRowList = snapshot.data!;
+                    final columnListOfMealsRowList = snapshot.data!;
                     return Column(
                       mainAxisSize: MainAxisSize.max,
-                      children: List.generate(
-                          columnGetListOfIngredientsRowList.length,
+                      children: List.generate(columnListOfMealsRowList.length,
                           (columnIndex) {
-                        final columnGetListOfIngredientsRow =
-                            columnGetListOfIngredientsRowList[columnIndex];
+                        final columnListOfMealsRow =
+                            columnListOfMealsRowList[columnIndex];
                         return ListView(
                           padding: EdgeInsets.zero,
                           shrinkWrap: true,
@@ -101,8 +100,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                   children: [
                                     Text(
                                       valueOrDefault<String>(
-                                        columnGetListOfIngredientsRow
-                                            .ingredientName,
+                                        columnListOfMealsRow.mealName,
                                         'Nothing',
                                       ),
                                       style: FlutterFlowTheme.of(context)
